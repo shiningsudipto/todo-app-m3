@@ -1,5 +1,6 @@
 import { ADDED, TOGGLED, COLORSELECTED, ALLCOMPLETED, CLEARCOMPLETED, DELETED } from "./actionTypes";
-import { initialState } from "./initialState";
+import initialState from './initialState';
+
 
 const nextTodoId = (todos) => {
     const maxId = todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1);
@@ -45,7 +46,7 @@ const todoReducer = (state = initialState, action) => {
         case ALLCOMPLETED:
             return state.map(todo => {
                 return {
-                    ...state,
+                    ...todo,
                     completed: true
                 }
             })
