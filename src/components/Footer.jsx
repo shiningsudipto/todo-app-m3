@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { statusChanged } from "../redux/filters/actions";
+import { colorChanged, statusChanged } from "../redux/filters/actions";
 
 const numberOfTodos = (no_of_todos) => {
     switch (no_of_todos) {
@@ -19,13 +19,22 @@ const Footer = () => {
     const todos = useSelector((state) => state.todos);
 
     const todosRemaining = todos.filter((todo) => !todo.completed).length;
+    const { status, colors } = filters;
 
     const dispatch = useDispatch();
 
     const handleStatusChange = (status) => {
         dispatch(statusChanged(status))
     }
-    const { status, colors } = filters;
+
+    const handleColorChange = (color) => {
+        if (colors.includes(color)) {
+            dispatch(colorChanged(color, 'removed'))
+        } else {
+            dispatch(colorChanged(color, 'added'))
+        }
+    }
+
 
     return (
         <div className="mt-4 flex justify-between text-xs text-gray-500">
